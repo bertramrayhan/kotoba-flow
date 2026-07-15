@@ -1,13 +1,77 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kotoba-flow</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kotoba Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/src/style.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: "#ae2f34",
+          "primary-container": "#ff6b6b",
+          "on-primary": "#ffffff",
+          "on-surface": "#151546",
+          "on-surface-variant": "#584140",
+          surface: "#fcf8ff",
+          "surface-container": "#eeecff",
+        },
+        fontFamily: {
+          jp: ["Noto Sans JP", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
+</head>
+<body class="font-jp bg-surface text-on-surface min-h-screen flex items-center justify-center p-6 relative">
+
+  <!-- Decorative animated background -->
+  <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Add word button -->
+  <button
+    id="addBtn"
+    aria-label="Add Word"
+    class="fixed top-8 right-8 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-surface-container text-primary text-2xl font-bold shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
+  >
+    +
+  </button>
+
+  <main class="relative z-10 w-full max-w-[900px] flex flex-col items-center gap-12 px-6">
+    <div
+      id="card"
+      class="glass-card w-full px-10 py-14 md:px-16 md:py-16 rounded-[48px] shadow-[0_24px_48px_rgba(174,47,52,0.12)] flex flex-col items-center text-center transition-all duration-300"
+      style="transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);"
+    >
+      <h1 id="sentenceText" class="text-3xl md:text-[44px] font-bold leading-snug tracking-tight">
+        昨日は図書館で<span class="sentence-highlight text-primary">新しい本</span>を読みました。
+      </h1>
+    </div>
+
+    <button
+      id="shuffleBtn"
+      class="hover-bounce flex items-center gap-3 px-10 py-5 bg-primary text-on-primary rounded-full text-xl font-bold shadow-[0_8px_24px_rgba(174,47,52,0.3)] transition-transform active:scale-90"
+    >
+      <span id="shuffleIcon" class="text-2xl inline-block transition-transform duration-500">&#8635;</span>
+      <span>Shuffle</span>
+    </button>
+  </main>
+
+  <div class="fixed bottom-8 right-8 z-50 text-xs tracking-widest uppercase text-on-surface-variant opacity-50">
+    Next new set at 23:00
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
 </html>
