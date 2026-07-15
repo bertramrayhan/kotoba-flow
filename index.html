@@ -48,6 +48,31 @@
     +
   </button>
 
+  <!-- Add Word Modal -->
+  <div id="addModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="relative w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="glass-card p-6 rounded-[48px] shadow-[0_24px_48px_rgba(174,47,52,0.12)] bg-surface-container/90 backdrop-blur-sm w-full">
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="text-xl font-bold text-primary">Add Word</h2>
+          <button id="closeModalBtn" class="text-text-primary hover:text-primary-container hover:bg-primary-hover hover:text-on-primary">
+            ✕
+          </button>
+        </div>
+        <form id="addWordForm" class="space-y-4">
+          <div>
+            <label for="wordInput" class="block text-sm font-medium mb-1 text-on-surface">Reading (Hiragana/Katakana)</label>
+            <input id="wordInput" name="wordInput" type="text" class="w-full px-4 py-2 bg-surface/80 border border-on-surface-variant/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary" placeholder="あたらしいほん">
+          </div>
+        </form>
+        <div class="mt-6 flex justify-end">
+          <button form="addWordForm" type="submit" id="saveWordBtn" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container hover:text-white transition-colors">
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main class="relative z-10 w-full max-w-[900px] flex flex-col items-center gap-12 px-6">
     <div
       id="card"

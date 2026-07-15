@@ -1,60 +1,70 @@
-import './style.css'
-import javascriptLogo from './assets/javascript.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import { setupCounter } from './counter.js'
+import { GoogleGenAI } from "@google/genai";
+import { handleAddWordForm, handleAddWordModal } from "./addWord";
 
-document.querySelector('#app').innerHTML = `
-<section id="center">
-  <div class="hero">
-    <img src="${heroImg}" class="base" width="170" height="179">
-    <img src="${javascriptLogo}" class="framework" alt="JavaScript logo"/>
-    <img src="${viteLogo}" class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/main.js</code> and save to test <code>HMR</code></p>
-  </div>
-  <button id="counter" type="button" class="counter"></button>
-</section>
+const sentences = [
+  {
+    html: '昨日は図書館で<span class="sentence-highlight text-primary">新しい本</span>を読みました。',
+  },
+  {
+    html: '朝ごはんに<span class="sentence-highlight text-primary">水</span>を飲みます。',
+  },
+  {
+    html: '友達と<span class="sentence-highlight text-primary">映画</span>を見ました。',
+  },
+  {
+    html: '毎日<span class="sentence-highlight text-primary">日本語</span>を勉強します。',
+  }
+];
 
-<div class="ticks"></div>
+const card = document.getElementById("card");
+const sentenceText = document.getElementById("sentenceText");
+const shuffleBtn = document.getElementById("shuffleBtn");
+const shuffleIcon = document.getElementById("shuffleIcon");
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#documentation-icon"></use></svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank">
-          <img class="logo" src="${viteLogo}" alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-          <img class="button-icon" src="${javascriptLogo}" alt="">
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true"><use href="/icons.svg#social-icon"></use></svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li><a href="https://github.com/vitejs/vite" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#github-icon"></use></svg>GitHub</a></li>
-      <li><a href="https://chat.vite.dev/" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#discord-icon"></use></svg>Discord</a></li>
-      <li><a href="https://x.com/vite_js" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#x-icon"></use></svg>X.com</a></li>
-      <li><a href="https://bsky.app/profile/vite.dev" target="_blank"><svg class="button-icon" role="presentation" aria-hidden="true"><use href="/icons.svg#bluesky-icon"></use></svg>Bluesky</a></li>
-    </ul>
-  </div>
-</section>
+function getRandomSentence(exclude) {
+  let pick;
+  do {
+    pick = sentences[Math.floor(Math.random() * sentences.length)];
+  } while (sentences.length > 1 && pick === exclude);
+  return pick;
+}
 
-<div class="ticks"></div>
-<section id="spacer"></section>
-`
+let current = sentences[0];
 
-setupCounter(document.querySelector('#counter'))
+shuffleBtn.addEventListener("click", () => {
+  card.style.transform = "scale(0.95) translateY(10px)";
+  card.style.opacity = "0.5";
+  shuffleIcon.style.transform = "rotate(180deg)";
+
+  setTimeout(() => {
+    current = getRandomSentence(current);
+    sentenceText.innerHTML = current.html;
+
+    main();
+
+    card.style.transform = "scale(1) translateY(0)";
+    card.style.opacity = "1";
+  }, 250);
+
+  setTimeout(() => {
+    shuffleIcon.style.transform = "rotate(0deg)";
+  }, 600);
+});
+
+const addBtn = document.getElementById('addBtn');
+const modal = document.getElementById('addModal');
+const closeBtn = document.getElementById('closeModalBtn');
+const addWordForm = document.getElementById('addWordForm');
+
+handleAddWordModal(modal, addBtn, closeBtn);
+handleAddWordForm(addWordForm, modal);
+
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
+
+async function main() {
+  const interaction = await ai.interactions.create({
+    model: "gemini-3.5-flash",
+    input: "Berikan beberapa kata bahasa jepang. hasilkan dalam bentuk JSON, tanpa kata lain hanya JSON saja",
+  });
+  console.log(interaction.output_text);
+}
