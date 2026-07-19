@@ -38,8 +38,9 @@ export function handleAddWordForm(addWordForm, modal) {
   });
 }
 
-export function handleAddWordModal(modal, addBtn, closeBtn) {
+export function handleAddWordModal(modal, addBtn, closeBtn, addWordForm) {
   addBtn.addEventListener('click', () => {
+    addWordForm.reset();
     modal.classList.remove('hidden');
   });
 

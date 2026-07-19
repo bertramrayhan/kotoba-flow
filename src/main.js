@@ -55,7 +55,7 @@ const addModal = document.getElementById('addModal');
 const closeBtn = document.getElementById('closeModalBtn');
 const addWordForm = document.getElementById('addWordForm');
 
-handleAddWordModal(addModal, addBtn, closeBtn);
+handleAddWordModal(addModal, addBtn, closeBtn, addWordForm);
 handleAddWordForm(addWordForm, addModal);
 
 // Show word list modal
@@ -75,5 +75,5 @@ generateBtn.addEventListener('click', () => {
     return;
   }
 
-  getGeneratedSentencesList(wordsList.words);
+  getGeneratedSentencesList(wordsList.words, generateBtn);
 });
