@@ -1,52 +1,54 @@
 import { handleAddWordForm, handleAddWordModal } from "./addWord";
 import { getGeneratedSentencesList } from "./ai";
 import { handleShowWordModal } from "./showWord";
-
-const sentences = [
-  {
-    html: '昨日は図書館で<span class="sentence-highlight text-primary">新しい本</span>を読みました。',
-  },
-  {
-    html: '朝ごはんに<span class="sentence-highlight text-primary">水</span>を飲みます。',
-  },
-  {
-    html: '友達と<span class="sentence-highlight text-primary">映画</span>を見ました。',
-  },
-  {
-    html: '毎日<span class="sentence-highlight text-primary">日本語</span>を勉強します。',
-  }
-];
+import { sampleSentences } from "./sampleSentences";
 
 const card = document.getElementById("card");
 const sentenceText = document.getElementById("sentenceText");
 const shuffleBtn = document.getElementById("shuffleBtn");
 const shuffleIcon = document.getElementById("shuffleIcon");
 
+function setCardSentence() {
+  let sentence = current.japanese;
+  const targetWords = current.targetWords;
+
+  targetWords.forEach(word => {
+    const regex = new RegExp(word, 'g');
+    sentence = sentence.replace(regex, `<span class="sentence-highlight text-primary">${word}</span>`);
+  });
+
+  sentenceText.innerHTML = sentence;
+}
+
 function getRandomSentence(exclude) {
+  const chosenSentencesList = JSON.parse(localStorage.getItem('sentences')) || sampleSentences;
+
   let pick;
   do {
-    pick = sentences[Math.floor(Math.random() * sentences.length)];
-  } while (sentences.length > 1 && pick === exclude);
+    pick = chosenSentencesList[Math.floor(Math.random() * chosenSentencesList.length)];
+  } while (chosenSentencesList.length > 1 && pick.japanese === (exclude ? exclude.japanese : null));
+  console.log(pick);
   return pick;
 }
 
-let current = sentences[0];
+let current = getRandomSentence('ありがとう');
+setCardSentence();
 
 shuffleBtn.addEventListener("click", () => {
   card.style.transform = "scale(0.95) translateY(10px)";
   card.style.opacity = "0.5";
-  shuffleIcon.style.transform = "rotate(180deg)";
+  shuffleIcon.classList.add('animate-spin');
 
   setTimeout(() => {
     current = getRandomSentence(current);
-    sentenceText.innerHTML = current.html;
+    setCardSentence();
 
     card.style.transform = "scale(1) translateY(0)";
     card.style.opacity = "1";
   }, 250);
 
   setTimeout(() => {
-    shuffleIcon.style.transform = "rotate(0deg)";
+    shuffleIcon.classList.remove('animate-spin');
   }, 600);
 });
 

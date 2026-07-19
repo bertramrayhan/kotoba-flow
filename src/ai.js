@@ -2,7 +2,7 @@ import { GoogleGenAI } from "@google/genai";
 
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
-const BATCH_SIZE = 5;
+const BATCH_SIZE = 20;
 
 export async function getGeneratedSentencesList(wordsList, generateBtn) {
 const prompt = `

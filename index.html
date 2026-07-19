@@ -156,14 +156,13 @@
       id="shuffleBtn"
       class="hover-bounce flex items-center gap-3 px-10 py-5 bg-primary text-on-primary rounded-full text-xl font-bold shadow-[0_8px_24px_rgba(174,47,52,0.3)] transition-transform active:scale-90"
     >
-      <span id="shuffleIcon" class="text-2xl inline-block transition-transform duration-500">&#8635;</span>
+      <span id="shuffleIcon" class="material-symbols-outlined text-[30px]">refresh</span>
       <span>Shuffle</span>
     </button>
   </main>
 
-  <div class="fixed bottom-8 right-8 z-50 text-xs tracking-widest uppercase text-on-surface-variant opacity-50">
-    Next new set at 23:00
-  </div>
+  <!-- Toast container -->
+  <div id="toastContainer" class="fixed top-6 left-1/2 -translate-x-1/2 z-[200] flex flex-col items-center gap-2 pointer-events-none"></div>
 
   <script type="module" src="/src/main.js"></script>
 </body>
