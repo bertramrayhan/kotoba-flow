@@ -1,4 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
+import { showToast } from "./toast";
 
 const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
 
@@ -57,13 +58,14 @@ Generate exactly ${BATCH_SIZE} sentences.`;
       const data = JSON.parse(interaction.output_text);
 
       localStorage.setItem('sentences', JSON.stringify(data.sentences));
+      showToast('Kalimat-kalimat berhasil digenerate!', 'success');
     } else {
       throw new Error('Respon AI kosong atau tidak valid.');
     }
   } catch (error) {
     console.error("Gagal mendapatkan respon AI:", error.message);
     
-    alert("Maaf, sepertinya AI sedang tidak bisa dihubungi saat ini. Coba lagi nanti ya!");
+    showToast("Maaf, sepertinya AI sedang tidak bisa dihubungi saat ini. Coba lagi nanti", 'error');
   } finally {
     generateBtn.disabled = false;
     generateBtnIcon.textContent = 'auto_awesome';

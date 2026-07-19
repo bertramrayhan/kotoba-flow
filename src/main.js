@@ -2,6 +2,7 @@ import { handleAddWordForm, handleAddWordModal } from "./addWord";
 import { getGeneratedSentencesList } from "./ai";
 import { handleShowWordModal } from "./showWord";
 import { sampleSentences } from "./sampleSentences";
+import { showToast } from "./toast";
 
 const card = document.getElementById("card");
 const sentenceText = document.getElementById("sentenceText");
@@ -73,7 +74,7 @@ generateBtn.addEventListener('click', () => {
   const wordsList = JSON.parse(localStorage.getItem('wordsList')) || {};
 
   if(!wordsList || !wordsList.words) {
-    alert('Belum ada kata yang dimasukkan.');
+    showToast('Belum ada kata yang dimasukkan.', 'error');
     return;
   }
 

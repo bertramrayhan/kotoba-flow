@@ -1,3 +1,5 @@
+import { showToast } from "./toast"; 
+
 export function isJapanese(text) {
   // Regex ini mencakup Hiragana, Katakana, dan Kanji
   const japaneseRegex = /[\u3040-\u309f\u30a0-\u30ff\u4e00-\u9faf]/;
@@ -12,19 +14,19 @@ export function handleAddWordForm(addWordForm, modal) {
     const word = formData.get('wordInput');
 
     if(!word || word.trim() === "") {
-        alert("Isilah kata yang ingin ditambahkan.");
+        showToast("Isilah kata yang ingin ditambahkan.", 'error');
         return;
     }
     
     if(!isJapanese(word)) {
-        alert("Masukkan karakter Jepang.");
+        showToast("Masukkan karakter Jepang.", 'error');
         return;
     }
 
     let wordsList = JSON.parse(localStorage.getItem('wordsList')) || {words: []};
 
     if(wordsList.words.includes(word)) {
-      alert("Kata sudah ada di dalam list.");
+      showToast("Kata sudah ada di dalam list.", 'error');
       return;
     }
 
@@ -35,6 +37,8 @@ export function handleAddWordForm(addWordForm, modal) {
     localStorage.setItem('wordsList', JSON.stringify(wordsList));
 
     addWordForm.reset();
+
+    showToast("Kata berhasil dimasukkan!", 'success');
   });
 }
 
