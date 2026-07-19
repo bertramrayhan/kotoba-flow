@@ -11,30 +11,29 @@ export function handleAddWordForm(addWordForm, modal) {
     const formData = new FormData(addWordForm);
     const word = formData.get('wordInput');
 
-    console.log(word);
     if(!word || word.trim() === "") {
         alert("Isilah kata yang ingin ditambahkan.");
         return;
     }
-
+    
     if(!isJapanese(word)) {
         alert("Masukkan karakter Jepang.");
         return;
     }
 
-    let listWords = JSON.parse(localStorage.getItem('listWords')) || {};
+    let wordsList = JSON.parse(localStorage.getItem('wordsList')) || {words: []};
 
-    if(!listWords || !listWords.words) {
-        listWords = {words: [word]};
-    } else {
-        listWords.words.push(word);
+    if(wordsList.words.includes(word)) {
+      alert("Kata sudah ada di dalam list.");
+      return;
     }
 
-    console.log(listWords);
+    wordsList.words.push(word);
 
-    localStorage.setItem('listWords', JSON.stringify(listWords));
+    console.log(JSON.stringify(wordsList.words));
 
-    modal.classList.add('hidden');
+    localStorage.setItem('wordsList', JSON.stringify(wordsList));
+
     addWordForm.reset();
   });
 }

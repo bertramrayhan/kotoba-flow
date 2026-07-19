@@ -1,5 +1,6 @@
-import { GoogleGenAI } from "@google/genai";
 import { handleAddWordForm, handleAddWordModal } from "./addWord";
+import { getGeneratedSentencesList } from "./ai";
+import { handleShowWordModal } from "./showWord";
 
 const sentences = [
   {
@@ -40,8 +41,6 @@ shuffleBtn.addEventListener("click", () => {
     current = getRandomSentence(current);
     sentenceText.innerHTML = current.html;
 
-    main();
-
     card.style.transform = "scale(1) translateY(0)";
     card.style.opacity = "1";
   }, 250);
@@ -52,19 +51,29 @@ shuffleBtn.addEventListener("click", () => {
 });
 
 const addBtn = document.getElementById('addBtn');
-const modal = document.getElementById('addModal');
+const addModal = document.getElementById('addModal');
 const closeBtn = document.getElementById('closeModalBtn');
 const addWordForm = document.getElementById('addWordForm');
 
-handleAddWordModal(modal, addBtn, closeBtn);
-handleAddWordForm(addWordForm, modal);
+handleAddWordModal(addModal, addBtn, closeBtn);
+handleAddWordForm(addWordForm, addModal);
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
+// Show word list modal
+const listBtn = document.getElementById('listBtn');
+const listModal = document.getElementById('listModal');
+const closeListModalBtn = document.getElementById('closeListModalBtn');
 
-async function main() {
-  const interaction = await ai.interactions.create({
-    model: "gemini-3.5-flash",
-    input: "Berikan beberapa kata bahasa jepang. hasilkan dalam bentuk JSON, tanpa kata lain hanya JSON saja",
-  });
-  console.log(interaction.output_text);
-}
+handleShowWordModal(listModal, listBtn, closeListModalBtn);
+
+const generateBtn = document.getElementById('generateBtn');
+
+generateBtn.addEventListener('click', () => {
+  const wordsList = JSON.parse(localStorage.getItem('wordsList')) || {};
+
+  if(!wordsList || !wordsList.words) {
+    alert('Belum ada kata yang dimasukkan.');
+    return;
+  }
+
+  getGeneratedSentencesList(wordsList.words);
+});

@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="/src/style.css">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -29,6 +30,15 @@
     },
   };
 </script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings:
+      "FILL" 0,
+      "wght" 400,
+      "GRAD" 0,
+      "opsz" 24;
+  }
+</style>
 </head>
 <body class="font-jp bg-surface text-on-surface min-h-screen flex items-center justify-center p-6 relative">
 
@@ -39,14 +49,36 @@
     <div class="blob blob-3"></div>
   </div>
 
-  <!-- Add word button -->
+  <!-- Generate sentences button -->
   <button
-    id="addBtn"
-    aria-label="Add Word"
-    class="fixed top-8 right-8 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-surface-container text-primary text-2xl font-bold shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
+    id="generateBtn"
+    aria-label="Generate Sentences"
+    class="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 rounded-full bg-surface-container text-primary text-sm font-bold shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
   >
-    +
+    <span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+    <span>Generate</span>
   </button>
+
+  <!-- Right-side action buttons -->
+  <div class="fixed top-8 right-8 z-50 flex flex-col gap-3">
+    <!-- Add word button -->
+    <button
+      id="addBtn"
+      aria-label="Add Word"
+      class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container text-primary shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
+    >
+      <span class="material-symbols-outlined text-[24px]">add</span>
+    </button>
+
+    <!-- List word button -->
+    <button
+      id="listBtn"
+      aria-label="Show Word List"
+      class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container text-primary shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
+    >
+      <span class="material-symbols-outlined text-[24px]">format_list_bulleted</span>
+    </button>
+  </div>
 
   <!-- Add Word Modal -->
   <div id="addModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -68,6 +100,42 @@
           <button form="addWordForm" type="submit" id="saveWordBtn" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container hover:text-white transition-colors">
             Save
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- List Word Modal -->
+  <div id="listModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="relative w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="glass-card p-6 rounded-[48px] shadow-[0_24px_48px_rgba(174,47,52,0.12)] bg-surface-container/90 backdrop-blur-sm w-full">
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="text-xl font-bold text-primary">Word List</h2>
+          <button id="closeListModalBtn" class="text-text-primary hover:text-primary-container hover:bg-primary-hover hover:text-on-primary">
+            ✕
+          </button>
+        </div>
+        <div id="wordsListContainer" class="space-y-2">
+          <div class="flex items-start">
+            <span class="flex-shrink-0 w-5 text-primary font-medium">1.</span>
+            <span class="flex-grow">りんご</span>
+          </div>
+          <div class="flex items-start">
+            <span class="flex-shrink-0 w-5 text-primary font-medium">2.</span>
+            <span class="flex-grow">バナナ</span>
+          </div>
+          <div class="flex items-start">
+            <span class="flex-shrink-0 w-5 text-primary font-medium">3.</span>
+            <span class="flex-grow">チェリー</span>
+          </div>
+          <div class="flex items-start">
+            <span class="flex-shrink-0 w-5 text-primary font-medium">4.</span>
+            <span class="flex-grow">みかん</span>
+          </div>
+          <div class="flex items-start">
+            <span class="flex-shrink-0 w-5 text-primary font-medium">5.</span>
+            <span class="flex-grow">ぶどう</span>
+          </div>
         </div>
       </div>
     </div>
