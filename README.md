@@ -2,7 +2,7 @@
 
 Bunmix is a lightweight web application for learning Japanese vocabulary through AI‑generated example sentences. Users input Japanese words (hiragana & katakana only) and the app uses the Google Gemini API to create natural sentences that highlight the target words — also in hiragana & katakana only. The app works entirely in the browser, storing the word list and API key in `localStorage`.
 
-![Bunmix Screenshot](https://github.com/bertramrayhan/bunmix/main/public/homepage.png)
+![Bunmix Screenshot](https://github.com/bertramrayhan/bunmix/blob/main/public/homepage.png)
 
 ## Features
 
