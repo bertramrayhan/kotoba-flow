@@ -3,6 +3,7 @@ import { getGeneratedSentencesList } from "./ai";
 import { handleShowWordModal } from "./showWord";
 import { sampleSentences } from "./sampleSentences";
 import { showToast } from "./toast";
+import { handleApiKeyForm, handleApiKeyModal } from "./saveApiKey";
 
 const card = document.getElementById("card");
 const sentenceText = document.getElementById("sentenceText");
@@ -80,3 +81,11 @@ generateBtn.addEventListener('click', () => {
 
   getGeneratedSentencesList(wordsList.words, generateBtn);
 });
+
+const apiKeyBtn = document.getElementById('apiKeyBtn');
+const apiKeyModal = document.getElementById('apiKeyModal');
+const apiKeyForm = document.getElementById('apiKeyForm');
+const closeApiKeyModalBtn = document.getElementById('closeApiKeyModalBtn')
+
+handleApiKeyModal(apiKeyModal, apiKeyBtn, closeApiKeyModalBtn, apiKeyForm);
+handleApiKeyForm(apiKeyForm, apiKeyModal);

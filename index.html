@@ -78,6 +78,13 @@
     >
       <span class="material-symbols-outlined text-[24px]">format_list_bulleted</span>
     </button>
+    <button
+      id="apiKeyBtn"
+      aria-label="Set API Key"
+      class="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container text-primary shadow-lg hover:bg-primary-container hover:text-white transition-all active:scale-95"
+    >
+      <span class="material-symbols-outlined text-[24px]">key</span>
+    </button>
   </div>
 
   <!-- Add Word Modal -->
@@ -136,6 +143,43 @@
             <span class="flex-shrink-0 w-5 text-primary font-medium">5.</span>
             <span class="flex-grow">ぶどう</span>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Key Modal -->
+  <div id="apiKeyModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="relative w-full max-w-md max-h-[90vh] overflow-y-auto">
+      <div class="glass-card p-6 rounded-[48px] shadow-[0_24px_48px_rgba(174,47,52,0.12)] bg-surface-container/90 backdrop-blur-sm w-full">
+        <div class="flex justify-between items-start mb-4">
+          <h2 class="text-xl font-bold text-primary">API Key</h2>
+          <button id="closeApiKeyModalBtn" class="text-text-primary hover:text-primary-container hover:bg-primary-hover hover:text-on-primary">
+            ✕
+          </button>
+        </div>
+        <form id="apiKeyForm" class="space-y-4">
+          <div>
+            <label for="apiKeyInput" class="block text-sm font-medium mb-1 text-on-surface">Your Gemini API Key</label>
+            <input
+              id="apiKeyInput"
+              name="apiKeyInput"
+              type="password"
+              autocomplete="new-password"
+              data-lpignore="true"
+              data-form-type="other"
+              class="w-full px-4 py-2 bg-surface/80 border border-on-surface-variant/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              placeholder="AIzaSy..."
+            />
+            <p class="text-xs text-on-surface-variant opacity-60 mt-1">
+              Stored only in your browser. Never sent anywhere except to generate your sentences.
+            </p>
+          </div>
+        </form>
+        <div class="mt-6 flex justify-end">
+          <button form="apiKeyForm" type="submit" id="saveApiKeyBtn" class="px-6 py-2 bg-primary text-on-primary rounded-lg font-medium hover:bg-primary-container hover:text-white transition-colors">
+            Save
+          </button>
         </div>
       </div>
     </div>

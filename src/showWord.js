@@ -1,5 +1,5 @@
-export function handleShowWordModal(listModal, ListBtn, closeListModalBtn) {
-  ListBtn.addEventListener('click', () => {
+export function handleShowWordModal(listModal, listBtn, closeListModalBtn) {
+  listBtn.addEventListener('click', () => {
     const wordsListContainer = document.getElementById('wordsListContainer')
     const wordsList = JSON.parse(localStorage.getItem('wordsList')) || {};
 

@@ -11,9 +11,9 @@ export function handleAddWordForm(addWordForm, modal) {
     event.preventDefault();
 
     const formData = new FormData(addWordForm);
-    const word = formData.get('wordInput');
+    const word = formData.get('wordInput').trim();
 
-    if(!word || word.trim() === "") {
+    if(!word || word === "") {
         showToast("Isilah kata yang ingin ditambahkan.", 'error');
         return;
     }

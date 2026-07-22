@@ -1,8 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import { showToast } from "./toast";
 
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_API_KEY });
-
 const BATCH_SIZE = 20;
 
 export async function getGeneratedSentencesList(wordsList, generateBtn) {
@@ -37,6 +35,15 @@ OUTPUT FORMAT (strict JSON, no other text):
 }
 
 Generate exactly ${BATCH_SIZE} sentences.`;
+
+  const apiKey = localStorage.getItem('apiKey') || '';
+
+  if(!apiKey || apiKey === '') {
+    showToast('Silakan masukkan API key terlebih dahulu.', 'error');
+    return;
+  }
+
+  const ai = new GoogleGenAI({ apiKey: apiKey });
   
   generateBtn.disabled = true;
   const generateBtnIcon = document.getElementById('generateBtnIcon');
